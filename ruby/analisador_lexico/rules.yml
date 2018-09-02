@@ -1,0 +1,2 @@
+COMMENT: !ruby/regexp '/^\*.*$|\/\*.*$/'
+VARIABLE: !ruby/regexp '/\#[a-zA-Z0-9-]+/'

@@ -6,7 +6,11 @@ scan = Analyzer.new(YAML.load_file(File.join(__dir__, './analisador_lexico/rules
 # p =scan.tokenizer("aaa #ok #aa *jjj #sakjhdasjdk blablabla")
 # puts p
 p = scan.tokenizer_file('./analisador_lexico/teste.nsp')
-puts p
+# puts p['type']
+
+p.each do |d|
+puts d
+end
 # File.open("./analisador_lexico/teste.nsp", "r").each_line do |line|
 #       puts line
 # end
@@ -15,3 +19,5 @@ puts p
 # puts "#{a} - #{l}"
 # puts "-------------------------"
 # end
+
+# puts 'passou' unless((/^\s+$/=~ ' k'))

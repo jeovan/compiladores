@@ -26,7 +26,10 @@ class Analyzer
   def tokenizer_file(filename)
     tb = []
     File.open(filename, "r").each_line.with_index  do |line,index|
-      tb.push(tokenizer(line,index))
+      t = tokenizer(line,index)
+      t.each do |d|
+        tb.push(d)
+      end
     end
     return tb
   end

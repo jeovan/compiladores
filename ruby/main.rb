@@ -7,9 +7,10 @@ scan = Analyzer.new(YAML.load_file(File.join(__dir__, './analisador_lexico/rules
 # puts p
 p = scan.tokenizer_file('./analisador_lexico/teste.nsp')
 # puts p['type']
+# puts p
 
 p.each do |d|
-puts d
+puts "[#{d[:line] }]#{d[:type] } => #{d[:value] }"
 end
 # File.open("./analisador_lexico/teste.nsp", "r").each_line do |line|
 #       puts line

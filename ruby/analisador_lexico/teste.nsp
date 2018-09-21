@@ -1,17 +1,3 @@
-*********************************************************************************
-* SISTEMA .......... SITAFE NF-LANCAMENTO LANCAMENTO-ITEM LANCAMENTO
-* PROGRAMA ......... PMARCIO3
-* ANALISTA ......... MARCIO POMPERMAIER
-* PROGRAMADOR ...... MARCIO POMPERMAIER
-* OBJETIVO ......... Treinamento Natural
-*
-* VERSÃO-DATA ...... 17/05/2018
-*********************************************************************************
-DEFINE DATA
-LOCAL 
-END-DEFINE
-  IT-VA-TOTAL-LANCAMENTO    IT-NU-GUIA-LANCAMENTO IT-NU-PARCELA
-  184,74                    20181100279963        00
-  IT-NU-IDENTIFICACAO-NDF   IT-VA-TOTAL-ICMS
-  0180400014818             "sadsad"
-END
+* sajdalksjdlkasjd
+ADD ADD asdasdasd
+ADD s asdasdasd s

@@ -1,7 +1,8 @@
 class Analyzer
-  attr_accessor :rules
+  attr_accessor :rules, :ignore_tokens, :errors
   def initialize(rules)
     @rules = rules
+    @errors = false
   end
 
   def tokenizer(characters, line = 0)
@@ -19,7 +20,7 @@ class Analyzer
       end
     end
     tb_line = sort_hash(tb_line)
-    tb_line = unknown_lexemes(tb_line,characters,line)
+    unknown_lexemes(tb_line,characters,line)
     return tb_line.values
   end
 
@@ -31,29 +32,32 @@ class Analyzer
         tb.push(d)
       end
     end
+    tb.delete_if { |h|  @ignore_tokens.include?(h[:type].to_s) } unless @ignore_tokens.nil?
+    raise "UNKNOWN TOKENS!" if tb.any?{|token| token[:type].to_s == "UNKNOWN"} && @errors
     return tb
   end
 
-  def unknown_lexemes(tb_line,characters,line)
+  def unknown_lexemes(map_tokens,characters,line)
     unknown = []
     prev = 0
-    unknown << (0..characters.length-1) if tb_line.length == 0
-    tb_line.each do |k,v|
-      if k == tb_line.keys.first
+    unknown << (0..characters.length-1) if map_tokens.length == 0
+    map_tokens.each do |k,v|
+      if k == map_tokens.keys.first
         unknown << (0..k.first-1) unless (k === 0)
+        unknown << (k.last+1..characters.length-1) if k == map_tokens.keys.last && k.last < characters.length-1
       else
         unknown << (prev.last+1..k.first-1) if k.first > prev.last+1
-        if k == tb_line.keys.last
+        if k == map_tokens.keys.last
           unknown << (k.last+1..characters.length-1) unless (k === characters.length-1)
         end
       end
       prev = k
     end
     unknown.each do |v|
-      tb_line[v] = {:line =>line,:value => characters[v],:type => :UNKNOWN,:pos_initial =>  v.first} unless ((/^\s+$/=~ characters[v]))
+      map_tokens[v] = {:line =>line,:value => characters[v],:type => :UNKNOWN,:pos_initial =>  v.first} unless ((/^\s+$/=~ characters[v]))
     end
-    tb_line = sort_hash(tb_line)
-    return tb_line
+    map_tokens = sort_hash(map_tokens)
+    return map_tokens
   end
 
   def sort_hash(tb)
